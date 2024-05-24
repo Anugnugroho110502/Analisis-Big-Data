@@ -33,6 +33,7 @@ st.write("Analyze the sentiment of IMDb movie reviews.")
 
 # Sidebar for model selection, language selection, and review input
 st.sidebar.title("Settings")
+uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type="csv")
 model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
 language_option = st.sidebar.selectbox("Choose a language for translation", ["Indonesian", "Spanish", "French", "German", "Japanese", "Javanese", "Korean"])
 language_codes = {
@@ -45,7 +46,6 @@ language_codes = {
     "Korean": "ko"
 }
 user_review = st.sidebar.text_area("Enter your review here:")
-uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type="csv")
 
 if user_review:
     # Translate review to selected language
