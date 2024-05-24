@@ -40,7 +40,7 @@ def add_bg_to_sidebar(image_url):
             padding-right: 10px;
         }}
         </style>
-        ",
+        """,
         unsafe_allow_html=True
     )
 
