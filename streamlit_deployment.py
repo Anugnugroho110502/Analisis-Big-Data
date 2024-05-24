@@ -4,6 +4,8 @@ import joblib
 from googletrans import Translator
 import matplotlib.pyplot as plt
 import numpy as np
+import plotly.graph_objects as go
+from wordcloud import WordCloud
 
 # Load the models and vectorizer
 nb_model = joblib.load('sentiment_model_nb.pkl')
@@ -48,17 +50,28 @@ if user_review:
     # Display the results
     st.write(f"{model_option} Prediction:", sentiment)
 
-    # Display prediction probabilities
+    # Display prediction probabilities using Plotly
     st.write("Prediction Probabilities:")
-    st.write(f"Positive: {probabilities[1]:.2f}, Negative: {probabilities[0]:.2f}")
+    fig = go.Figure(data=[
+        go.Bar(name='Negative', x=['Negative'], y=[probabilities[0]], marker_color='red'),
+        go.Bar(name='Positive', x=['Positive'], y=[probabilities[1]], marker_color='green')
+    ])
+    fig.update_layout(barmode='group', xaxis_title='Sentiment', yaxis_title='Probability', yaxis=dict(range=[0, 1]))
+    st.plotly_chart(fig)
+    
+    # Generate and display WordCloud for positive reviews
+    if sentiment == "Positive":
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(user_review)
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis('off')
+        plt.title('Word Cloud for Positive Review')
+        st.pyplot(plt)
 
-    # Plotting probabilities
-    st.write("Prediction Probabilities Bar Chart:")
-    fig, ax = plt.subplots()
-    categories = ['Negative', 'Positive']
-    ax.bar(categories, probabilities, color=['red', 'green'])
-    ax.set_ylim([0, 1])
-    st.pyplot(fig)
+    # Additional information
+    st.write("Additional Information:")
+    st.write(f"Length of the review: {len(user_review.split())} words")
+    st.write(f"Model used: {model_option}")
     
     # Additional information
     st.write("Additional Information:")
