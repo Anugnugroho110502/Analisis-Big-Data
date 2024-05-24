@@ -28,7 +28,6 @@ st.write("Analyze the sentiment of IMDb movie reviews.")
 st.sidebar.title("Settings")
 user_review = st.sidebar.text_area("Enter your review here:")
 model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
-min_word_freq = st.sidebar.slider("Minimum word frequency for WordCloud", 1, 10, 1)
 
 if user_review:
     # Translate review to Indonesian
