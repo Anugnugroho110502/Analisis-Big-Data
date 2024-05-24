@@ -24,10 +24,10 @@ def translate_to_indonesian(text):
 st.title("IMDb Sentiment Analysis")
 st.write("Analyze the sentiment of IMDb movie reviews.")
 
-# Sidebar for model selection, wordcloud settings, and review input
+# Sidebar for model selection and review input
 st.sidebar.title("Settings")
-user_review = st.sidebar.text_area("Enter your review here:")
 model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
+user_review = st.sidebar.text_area("Enter your review here:")
 
 if user_review:
     # Translate review to Indonesian
@@ -59,7 +59,7 @@ if user_review:
     st.plotly_chart(fig)
 
     # Generate and display WordCloud
-    wordcloud = WordCloud(width=800, height=400, background_color='white', min_word_length=min_word_freq).generate(user_review)
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(user_review)
     plt.figure(figsize=(10, 5))
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis('off')
