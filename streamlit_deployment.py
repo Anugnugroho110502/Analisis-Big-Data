@@ -41,7 +41,7 @@ if user_review:
     # Translate review to selected language
     dest_lang = language_codes[language_option]
     translated_review = translate_review(user_review, dest_lang)
-    st.write(f"Translated Review ({language_option}):", translated_review)
+    st.write(f"Translated Review ({language_option}):\n\n", translated_review)
 
     # Vectorize the user input
     user_review_tfidf = vectorizer.transform([user_review])
