@@ -4,9 +4,9 @@ import joblib
 from googletrans import Translator
 
 # Load the models and vectorizer
-nb_model = joblib.load('C:/Users/ASUS/Downloads/sentiment_model_nb.pkl')
-lr_model = joblib.load('C:/Users/ASUS/Downloads/sentiment_model_lr.pkl')
-vectorizer = joblib.load('C:/Users/ASUS/Downloads/tfidf_vectorizer.pkl')
+nb_model = joblib.load('sentiment_model_nb.pkl')
+lr_model = joblib.load('sentiment_model_lr.pkl')
+vectorizer = joblib.load('tfidf_vectorizer.pkl')
 
 # Initialize translator
 translator = Translator()
