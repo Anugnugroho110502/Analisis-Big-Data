@@ -5,3 +5,5 @@ Googletrans==4.0.0-rc1
 Scikit-learn==1.2.2
 matplotlib
 numpy
+plotly
+wordcloud
