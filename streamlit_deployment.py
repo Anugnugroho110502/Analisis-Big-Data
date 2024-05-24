@@ -24,6 +24,11 @@ def translate_to_indonesian(text):
 st.title("IMDb Sentiment Analysis")
 st.write("Analyze the sentiment of IMDb movie reviews.")
 
+# Sidebar for model selection and wordcloud settings
+st.sidebar.title("Settings")
+model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
+min_word_freq = st.sidebar.slider("Minimum word frequency for WordCloud", 1, 10, 1)
+
 # Input text box for user review
 user_review = st.text_area("Enter your review here:")
 
@@ -34,9 +39,6 @@ if user_review:
 
     # Vectorize the user input
     user_review_tfidf = vectorizer.transform([user_review])
-    
-    # Model selection
-    model_option = st.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
 
     if model_option == "Naive Bayes":
         prediction = nb_model.predict(user_review_tfidf)[0]
@@ -58,21 +60,16 @@ if user_review:
     ])
     fig.update_layout(barmode='group', xaxis_title='Sentiment', yaxis_title='Probability', yaxis=dict(range=[0, 1]))
     st.plotly_chart(fig)
-    
+
     # Generate and display WordCloud for positive reviews
     if sentiment == "Positive":
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(user_review)
+        wordcloud = WordCloud(width=800, height=400, background_color='white', min_word_length=min_word_freq).generate(user_review)
         plt.figure(figsize=(10, 5))
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')
         plt.title('Word Cloud for Positive Review')
         st.pyplot(plt)
 
-    # Additional information
-    st.write("Additional Information:")
-    st.write(f"Length of the review: {len(user_review.split())} words")
-    st.write(f"Model used: {model_option}")
-    
     # Additional information
     st.write("Additional Information:")
     st.write(f"Length of the review: {len(user_review.split())} words")
