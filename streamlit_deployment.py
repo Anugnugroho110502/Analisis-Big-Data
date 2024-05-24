@@ -27,7 +27,7 @@ st.write("Analyze the sentiment of IMDb movie reviews.")
 # Sidebar for model selection, language selection, and review input
 st.sidebar.title("Settings")
 model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
-language_option = st.sidebar.selectbox("Choose a language for translation", ["Indonesian", "Spanish", "French", "German", "Japanese"])
+language_option = st.sidebar.selectbox("Choose a language for translation", ["Indonesian", "Spanish", "French", "German", "Japanese", "Javanese", "Korean"])
 language_codes = {
     "Indonesian": "id",
     "Spanish": "es",
