@@ -30,15 +30,35 @@ if user_review:
 
     # Vectorize the user input
     user_review_tfidf = vectorizer.transform([user_review])
+    
+    # Model selection
+    model_option = st.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
 
-    # Predict sentiment with Naive Bayes model
-    nb_prediction = nb_model.predict(user_review_tfidf)[0]
-    nb_sentiment = "Positive" if nb_prediction == 1 else "Negative"
-
-    # Predict sentiment with Logistic Regression model
-    lr_prediction = lr_model.predict(user_review_tfidf)[0]
-    lr_sentiment = "Positive" if lr_prediction == 1 else "Negative"
+    if model_option == "Naive Bayes":
+        prediction = nb_model.predict(user_review_tfidf)[0]
+        probabilities = nb_model.predict_proba(user_review_tfidf)[0]
+        sentiment = "Positive" if prediction == 1 else "Negative"
+    else:
+        prediction = lr_model.predict(user_review_tfidf)[0]
+        probabilities = lr_model.predict_proba(user_review_tfidf)[0]
+        sentiment = "Positive" if prediction == 1 else "Negative"
 
     # Display the results
-    st.write("Naive Bayes Prediction:", nb_sentiment)
-    st.write("Logistic Regression Prediction:", lr_sentiment)
+    st.write(f"{model_option} Prediction:", sentiment)
+
+    # Display prediction probabilities
+    st.write("Prediction Probabilities:")
+    st.write(f"Positive: {probabilities[1]:.2f}, Negative: {probabilities[0]:.2f}")
+
+    # Plotting probabilities
+    st.write("Prediction Probabilities Bar Chart:")
+    fig, ax = plt.subplots()
+    categories = ['Negative', 'Positive']
+    ax.bar(categories, probabilities, color=['red', 'green'])
+    ax.set_ylim([0, 1])
+    st.pyplot(fig)
+    
+    # Additional information
+    st.write("Additional Information:")
+    st.write(f"Length of the review: {len(user_review.split())} words")
+    st.write(f"Model used: {model_option}")
