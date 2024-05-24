@@ -34,7 +34,7 @@ language_codes = {
     "French": "fr",
     "German": "de",
     "Japanese": "ja",
-    "Javanese": "jv",
+    "Javanese": "jw",
     "Korean": "ko"
 }
 user_review = st.sidebar.text_area("Enter your review here:")
