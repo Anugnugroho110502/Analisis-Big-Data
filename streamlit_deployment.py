@@ -59,14 +59,18 @@ if user_review:
     fig.update_layout(barmode='group', xaxis_title='Sentiment', yaxis_title='Probability', yaxis=dict(range=[0, 1]))
     st.plotly_chart(fig)
 
-    # Generate and display WordCloud for positive reviews
+    # Generate and display WordCloud
+    wordcloud = WordCloud(width=800, height=400, background_color='white', min_word_length=min_word_freq).generate(user_review)
+    plt.figure(figsize=(10, 5))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis('off')
+    
     if sentiment == "Positive":
-        wordcloud = WordCloud(width=800, height=400, background_color='white', min_word_length=min_word_freq).generate(user_review)
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis('off')
         plt.title('Word Cloud for Positive Review')
-        st.pyplot(plt)
+    else:
+        plt.title('Word Cloud for Negative Review')
+    
+    st.pyplot(plt)
 
     # Additional information
     st.write("Additional Information:")
