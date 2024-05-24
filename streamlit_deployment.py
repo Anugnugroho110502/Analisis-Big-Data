@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import plotly.graph_objects as go
 from wordcloud import WordCloud
+from gtts import gTTS
+import os
 
 # Load the models and vectorizer
 nb_model = joblib.load('sentiment_model_nb.pkl')
@@ -19,6 +21,11 @@ translator = Translator()
 def translate_review(text, dest_lang):
     translation = translator.translate(text, dest=dest_lang)
     return translation.text
+
+# Function to convert text to speech
+def text_to_speech(text, lang, filename):
+    tts = gTTS(text=text, lang=lang)
+    tts.save(filename)
 
 # Streamlit app
 st.title("IMDb Sentiment Analysis")
@@ -44,6 +51,12 @@ if user_review:
     dest_lang = language_codes[language_option]
     translated_review = translate_review(user_review, dest_lang)
     st.write(f"Translated Review ({language_option}):\n\n", translated_review)
+
+    # Convert translated review to speech
+    audio_file = "translated_review.mp3"
+    text_to_speech(translated_review, dest_lang, audio_file)
+    audio_bytes = open(audio_file, 'rb').read()
+    st.audio(audio_bytes, format='audio/mp3')
 
     # Vectorize the user input
     user_review_tfidf = vectorizer.transform([user_review])
@@ -87,7 +100,5 @@ if user_review:
     st.write(f"Length of the review: {len(user_review.split())} words")
     st.write(f"Model used: {model_option}")
 
-    # Additional information
-    st.write("Additional Information:")
-    st.write(f"Length of the review: {len(user_review.split())} words")
-    st.write(f"Model used: {model_option}")
+    # Remove the audio file after use
+    os.remove(audio_file)
