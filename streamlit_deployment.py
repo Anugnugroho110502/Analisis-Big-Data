@@ -32,7 +32,7 @@ st.title("IMDb Sentiment Analysis")
 st.write("Analyze the sentiment of IMDb movie reviews.")
 
 # Sidebar for model selection, language selection, and review input
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/2560px-IMDB_Logo_2016.svg.png", use_column_width=True)
+st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/2560px-IMDB_Logo_2016.svg.png", width=200)
 st.sidebar.title("Settings")
 uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type="csv")
 model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
