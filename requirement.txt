@@ -1,0 +1,5 @@
+Streamlit==1.35.0
+Pandas==2.0.3
+Joblib==1.4.2
+Googletrans==4.0.0-rc1
+Scikit-learn==1.2.2
