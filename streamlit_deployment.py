@@ -24,13 +24,11 @@ def translate_to_indonesian(text):
 st.title("IMDb Sentiment Analysis")
 st.write("Analyze the sentiment of IMDb movie reviews.")
 
-# Sidebar for model selection and wordcloud settings
+# Sidebar for model selection, wordcloud settings, and review input
 st.sidebar.title("Settings")
 model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
 min_word_freq = st.sidebar.slider("Minimum word frequency for WordCloud", 1, 10, 1)
-
-# Input text box for user review
-user_review = st.text_area("Enter your review here:")
+user_review = st.sidebar.text_area("Enter your review here:")
 
 if user_review:
     # Translate review to Indonesian
