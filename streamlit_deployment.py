@@ -26,8 +26,8 @@ st.write("Analyze the sentiment of IMDb movie reviews.")
 
 # Sidebar for model selection and review input
 st.sidebar.title("Settings")
-model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
 user_review = st.sidebar.text_area("Enter your review here:")
+model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
 
 if user_review:
     # Translate review to Indonesian
