@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import joblib
 from googletrans import Translator
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Load the models and vectorizer
 nb_model = joblib.load('sentiment_model_nb.pkl')
