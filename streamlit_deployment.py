@@ -45,6 +45,7 @@ language_codes = {
     "Korean": "ko"
 }
 user_review = st.sidebar.text_area("Enter your review here:")
+uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type="csv")
 
 if user_review:
     # Translate review to selected language
