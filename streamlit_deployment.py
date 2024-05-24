@@ -27,6 +27,29 @@ def text_to_speech(text, lang, filename):
     tts = gTTS(text=text, lang=lang)
     tts.save(filename)
 
+# Function to add background image to sidebar
+def add_bg_to_sidebar(image_url):
+    st.sidebar.markdown(
+        f"""
+        <style>
+        [data-testid="stSidebar"] > div:first-child {{
+            background: url("{image_url}");
+            background-size: cover;
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }}
+        </style>
+        ",
+        unsafe_allow_html=True
+    )
+
+# URL of the background image for sidebar
+sidebar_bg_image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/1200px-IMDB_Logo_2016.svg.png"
+
+# Adding the background image to sidebar
+add_bg_to_sidebar(sidebar_bg_image_url)
+
 # Streamlit app
 st.title("IMDb Sentiment Analysis")
 st.write("Analyze the sentiment of IMDb movie reviews.")
