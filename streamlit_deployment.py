@@ -15,24 +15,33 @@ vectorizer = joblib.load('tfidf_vectorizer.pkl')
 # Initialize translator
 translator = Translator()
 
-# Function to translate review to Indonesian
-def translate_to_indonesian(text):
-    translation = translator.translate(text, dest='id')
+# Function to translate review
+def translate_review(text, dest_lang):
+    translation = translator.translate(text, dest=dest_lang)
     return translation.text
 
 # Streamlit app
 st.title("IMDb Sentiment Analysis")
 st.write("Analyze the sentiment of IMDb movie reviews.")
 
-# Sidebar for model selection and review input
+# Sidebar for model selection, language selection, and review input
 st.sidebar.title("Settings")
-user_review = st.sidebar.text_area("Enter your review here:")
 model_option = st.sidebar.selectbox("Choose a model for prediction", ["Naive Bayes", "Logistic Regression"])
+language_option = st.sidebar.selectbox("Choose a language for translation", ["Indonesian", "Spanish", "French", "German", "Japanese"])
+language_codes = {
+    "Indonesian": "id",
+    "Spanish": "es",
+    "French": "fr",
+    "German": "de",
+    "Japanese": "ja"
+}
+user_review = st.sidebar.text_area("Enter your review here:")
 
 if user_review:
-    # Translate review to Indonesian
-    translated_review = translate_to_indonesian(user_review)
-    st.write("Translated Review:", translated_review)
+    # Translate review to selected language
+    dest_lang = language_codes[language_option]
+    translated_review = translate_review(user_review, dest_lang)
+    st.write(f"Translated Review ({language_option}):", translated_review)
 
     # Vectorize the user input
     user_review_tfidf = vectorizer.transform([user_review])
@@ -70,6 +79,11 @@ if user_review:
         plt.title('Word Cloud for Negative Review')
     
     st.pyplot(plt)
+
+    # Additional information
+    st.write("Additional Information:")
+    st.write(f"Length of the review: {len(user_review.split())} words")
+    st.write(f"Model used: {model_option}")
 
     # Additional information
     st.write("Additional Information:")
